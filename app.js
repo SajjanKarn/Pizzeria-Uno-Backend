@@ -1,21 +1,19 @@
 require("dotenv").config({ path: "./config/config.env" });
+require("./config/db"); // database
+
 const express = require("express");
-const mongoose = require("mongoose");
 
+const Pizza = require("./models/Pizza");
 const app = express();
-
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log(`connected to database`))
-  .catch((err) => console.log(err));
 
 // middlewares
 app.use(express.json());
 
 // routes
 
-app.get("/", (req, res) => {
-  res.send("hello world");
+app.get("/", async (req, res) => {
+  const pizzas = await Pizza.find();
+  res.send(pizzas);
 });
 
 // server configuration.
