@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 
     jwt.verify(token, process.env.JWT_SECRET, async (err, payload) => {
       if (err) {
-        return res.status(403).send("Invalid token!");
+        return res.status(403).json({ error: "Invalid token!" });
       }
 
       const user = await User.findOne({ _id: payload });
@@ -17,6 +17,6 @@ module.exports = (req, res, next) => {
       next();
     });
   } else {
-    res.status(401).send("Forbidden");
+    res.status(401).json({ error: "Forbidden" });
   }
 };

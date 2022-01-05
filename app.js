@@ -16,6 +16,7 @@ app.use(morgan("tiny"));
 // routes
 app.use("/api/pizza", require("./routes/pizza"));
 app.use("/api/user", require("./routes/auth"));
+app.use("/api/order", require("./routes/order"));
 
 // server configuration.
 const PORT = process.env.PORT || 8000;
